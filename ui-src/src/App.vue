@@ -1,5 +1,6 @@
 <template>
-  <MapView msg="Welcome to Your Vue.js App"/>
+  <Login/>
+  <MapView/>
 </template>
 
 <script>

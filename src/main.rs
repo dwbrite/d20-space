@@ -25,8 +25,6 @@ async fn main() {
         .nest("/api/v0", api::v0::router())
         .layer(TraceLayer::new_for_http());
 
-
-
     // run it with hyper on localhost:3000
     axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
         .serve(app.into_make_service())

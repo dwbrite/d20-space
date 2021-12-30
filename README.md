@@ -17,3 +17,17 @@ Select your character and enter your pin code.
 You're greeted with the game map and the menu.
 
 // TODO: better readme, better docs
+
+### Environment Variables
+
+With examples...
+
+```
+*BUCKET_SECRET=asdf91234yuhnkldm091mdasdlkaskld
+*BUCKET_ACCESS=ASDFD8912U10SDF
+*BUCKET_NAME=dnd-dnd-dnd
+*BUCKET_REGION=us-east-1
+*BUCKET_ENDPOINT=https://us-east-1.linodeobjects.com
+```
+
+`* = required`
