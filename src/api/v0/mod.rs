@@ -1,7 +1,7 @@
-pub mod auth;
-mod players;
+mod maps;
+mod meta;
 
-use crate::api::v0::auth::{AuthCache, Permission, UserAuthorization};
+use crate::api::v0::meta::auth::{AuthCache, Permission, UserAuthorization};
 use axum::extract::Extension;
 use axum::routing::*;
 use axum::{AddExtensionLayer, Json, Router};
@@ -12,6 +12,7 @@ use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::Mutex;
+use tower_http::classify::ServerErrorsFailureClass::StatusCode;
 
 pub fn configure_bucket() -> Bucket {
     let name = env!("BUCKET_NAME").to_string();
@@ -37,18 +38,8 @@ pub fn router() -> Router {
 
     let api = Router::new()
         .route("/", get(|| async { "Fuck off, it's not done yet." }))
-        .route("/map", get(get_map))
+        .nest("/maps", maps::router(bucket.clone(), auth_cache.clone()))
         .layer(AddExtensionLayer::new(auth_cache))
         .layer(AddExtensionLayer::new(bucket));
     api
-}
-
-// TODO: proc macro for user-authorization?
-async fn get_map(user_auth: UserAuthorization) -> Json<Value> {
-    if !user_auth.permissions.contains(&Permission::Map) {
-        // TODO: return unauthorized
-        return Json(json!({"ps": "you suck"}));
-    }
-
-    Json(json!({"ps": "you're great!'"}))
 }

@@ -20,8 +20,8 @@ use tower_http::classify::GrpcCode::Unauthenticated;
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub enum Permission {
-    Map,
-    Player,
+    MapsR, // This could probably even include the list of maps accessible
+    SelfRW,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -42,9 +42,13 @@ pub struct AuthCache {
 
 impl AuthCache {
     async fn load_from_bucket(&mut self, bucket: &mut Bucket, player: &str) -> anyhow::Result<()> {
-        let (data, _) = bucket
+        let (data, code) = bucket
             .get_object(format!("/players/{}/auth.json", player))
             .await?;
+
+        if code != 200 {
+            return Err(Error::msg("Probably failed to get that ish."));
+        }
 
         // unwrap because this _should_ be infallible if we get a response
         let auth_data: AuthData = serde_json::from_slice(&data).unwrap();
@@ -89,7 +93,7 @@ where
         let TypedHeader(Authorization(basic_auth)) =
             TypedHeader::<axum::headers::Authorization<Basic>>::from_request(req)
                 .await
-                .unwrap();
+                .map_err(|_| StatusCode::UNAUTHORIZED)?;
 
         let (player, pin) = (basic_auth.username(), basic_auth.password());
 
