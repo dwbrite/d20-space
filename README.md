@@ -5,19 +5,21 @@ but not full-blown Roll20 + DnDBeyond? Hate having to duckduckgo or google spell
 
 ## Requirements + Building
 
-- Rust
-- Npm
-- Vue CLI probably lol
+- Rust >= 1.59 (via rustup)
+- Npm (via your package manager of choice)
 
-`make all` to compile the server and pack the frontend into `/ui`
+`cd ui-src && npm install`
+
+~~`make all` to compile the server and pack the frontend into `/ui`~~
+
+env var file?
 
 ## Usage
 
 Select your character and enter your pin code.  
 You're greeted with the game map and the menu.
 
-// TODO: better readme, better docs
-
+// TODO: better readme, better docd
 ### Environment Variables
 
 With examples...
