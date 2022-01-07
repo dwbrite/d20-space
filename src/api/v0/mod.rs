@@ -2,17 +2,19 @@ mod maps;
 mod meta;
 
 use crate::api::v0::meta::auth::{AuthCache, Permission, UserAuthorization};
-use axum::extract::Extension;
+use axum::extract::{Extension, TypedHeader, WebSocketUpgrade};
 use axum::routing::*;
-use axum::{AddExtensionLayer, Json, Router};
+use axum::{AddExtensionLayer, headers, Json, Router};
 use s3::creds::Credentials;
 use s3::{Bucket, Region};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::sync::Arc;
+use axum::http::StatusCode;
+use axum::response::IntoResponse;
 use tokio::sync::Mutex;
-use tower_http::classify::ServerErrorsFailureClass::StatusCode;
+use meta::auth;
 
 pub fn configure_bucket() -> Bucket {
     let name = env!("BUCKET_NAME").to_string();
@@ -38,8 +40,13 @@ pub fn router() -> Router {
 
     let api = Router::new()
         .route("/", get(|| async { "Fuck off, it's not done yet." }))
-        .nest("/maps", maps::router(bucket.clone(), auth_cache.clone()))
+        .route("/authenticate", post(authenticate))
+        .nest("/maps", maps::router())
         .layer(AddExtensionLayer::new(auth_cache))
         .layer(AddExtensionLayer::new(bucket));
     api
+}
+
+pub async fn authenticate(user_auth: UserAuthorization) -> Json<UserAuthorization> {
+    Json(user_auth)
 }

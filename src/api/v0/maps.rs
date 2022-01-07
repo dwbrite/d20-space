@@ -32,7 +32,7 @@ struct Map {
     image_map: Vec<ImageMapItem>,
 }
 
-pub fn router(bucket: Arc<Mutex<Bucket>>, auth_cache: Arc<Mutex<AuthCache>>) -> Router {
+pub fn router() -> Router {
     let api = Router::new()
         .route("/", get(|| async { "TODO: maps collection" }))
         .route("/:id", get(get_map))

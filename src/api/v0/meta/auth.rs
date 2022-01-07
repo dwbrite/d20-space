@@ -16,7 +16,6 @@ use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::join;
 use tokio::sync::Mutex;
-use tower_http::classify::GrpcCode::Unauthenticated;
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub enum Permission {
@@ -56,7 +55,8 @@ impl AuthCache {
         Ok(())
     }
 
-    async fn try_authenticate(
+    // This software is an active car crash and needs to be split into a Core API + Backends + Axum binary
+    pub async fn try_authenticate(
         &mut self,
         player: &str,
         pin: &str,

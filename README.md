@@ -8,11 +8,10 @@ but not full-blown Roll20 + DnDBeyond? Hate having to duckduckgo or google spell
 - Rust >= 1.59 (via rustup)
 - Npm (via your package manager of choice)
 
-`cd ui-src && npm install`
 
-~~`make all` to compile the server and pack the frontend into `/ui`~~
+`make build` to compile the server and pack the frontend into `/ui`
 
-env var file?
+
 
 ## Usage
 
