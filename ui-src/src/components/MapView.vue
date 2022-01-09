@@ -28,7 +28,7 @@ export default {
     {
       let base_image = new Image();
       let scale = 0.5;
-      base_image.src = '/ui/temp-estar.jpg';
+      base_image.src = '/temp-estar.jpg';
       base_image.onload = function(){
         context.drawImage(base_image, 0, 0, base_image.width * scale, base_image.height * scale);
         console.log(screen.width, screen.height);
