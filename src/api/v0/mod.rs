@@ -1,5 +1,6 @@
 mod maps;
 mod meta;
+mod users;
 
 use crate::api::v0::meta::auth::{AuthCache, Permission, UserAuthorization};
 use axum::extract::{Extension, TypedHeader, WebSocketUpgrade};
@@ -40,13 +41,9 @@ pub fn router() -> Router {
 
     let api = Router::new()
         .route("/", get(|| async { "Fuck off, it's not done yet." }))
-        .route("/authenticate", post(authenticate))
+        .nest("/users", users::router())
         .nest("/maps", maps::router())
         .layer(AddExtensionLayer::new(auth_cache))
         .layer(AddExtensionLayer::new(bucket));
     api
-}
-
-pub async fn authenticate(user_auth: UserAuthorization) -> Json<UserAuthorization> {
-    Json(user_auth)
 }
