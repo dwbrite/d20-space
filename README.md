@@ -6,19 +6,18 @@ but not full-blown Roll20 + DnDBeyond? Hate having to duckduckgo or google spell
 ## Requirements + Building
 
 - Rust >= 1.59 (via rustup)
-- Npm (via your package manager of choice)
+- Node (via your package manager of choice - just for npm)
 
-
-`make build` to compile the server and pack the frontend into `/ui`
-
-
+Frontend: `cd ui && npm run watch`
+Backend: `cargo run` (make sure your env vars are set)
 
 ## Usage
+
+// TODO: mdBook usage docs
 
 Select your character and enter your pin code.  
 You're greeted with the game map and the menu.
 
-// TODO: better readme, better docd
 ### Environment Variables
 
 With examples...
