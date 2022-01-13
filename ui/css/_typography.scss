@@ -1,0 +1,21 @@
+@import url("/fonts/Kreon/kreon.css");
+@import url("/fonts/IMFellEnglish/im-fell-english.css");
+@import url("/fonts/Merriweather/merriweather.css");
+
+$face-serif: "Merriweather", serif;
+
+@media screen and (min-width: 1080px) {
+  body {
+    font-size: 13pt;
+    line-height: 1.5em;
+  }
+}
+
+
+body {
+  font-family: $face-serif;
+  letter-spacing: 0.3px;
+  -webkit-text-size-adjust: none;
+
+  overflow-wrap: break-word;
+}

@@ -25,7 +25,7 @@
   },
   "scripts": {
     "build:coffee": "coffee --transpile --output ../target/ui/js/ src/",
-    "build:public": "npx copyfiles --up 1 public/* ../target/ui",
+    "build:public": "npx copyfiles --up 1 \"public/**/*\" ../target/ui",
     "build:sass": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 css/styles.scss ../target/ui/styles.css",
     "watch": "npm-watch"
   },

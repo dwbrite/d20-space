@@ -5,28 +5,35 @@ UserComponent =
       <div class={"user-name"}>{vnode.attrs.name}</div>
     </div>
 
-appdata = {
-  users: []
-}
-
 UsersModel =
+  users: []
   loadList: ->
     return m.request(
       method: "GET"
       url: "http://localhost:3000/api/v0/users"
       withCredentials: false
     ).then((result) ->
-      appdata = result
+      UsersModel.users = result.users
     )
 
-export User =
+Title =
+  view: -> [
+    "Who Cometh",
+    <br/>,
+    "to the Land of Estar?"
+  ]
+
+export Login =
   view: -> [
     <div class={"login"}>
-      <div class={"modal"}>
-        {appdata.users.map((item) -> return <UserComponent name={item.name}/>)}
+      <div class={"login-modal"}>
+        <div class={"login-title"}><Title/></div>
+        {<UserComponent name={user.name}/> for user in UsersModel.users}
+        {<UserComponent name={user.name}/> for user in UsersModel.users}
+        {<UserComponent name={user.name}/> for user in UsersModel.users}
       </div>
     </div>
   ]
+
   oninit: ->
-    console.log("fuck you?")
     UsersModel.loadList()
