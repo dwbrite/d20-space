@@ -15,7 +15,7 @@ export Extra =
 User =
   view: (vnode) ->
     <div class={"user"} onclick={this.onclick(vnode)}>
-      <img class={"user-icon"} src={"/blob_woah.png"}>icon</img>
+      <img class={"user-icon"} src={"/static/blob_woah.png"}>icon</img>
       <div class={"user-name"}>{vnode.attrs.name}</div>
     </div>
   onclick: (vnode) -> ->

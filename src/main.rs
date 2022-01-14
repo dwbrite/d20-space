@@ -1,14 +1,14 @@
 mod api;
 
 use axum::body::HttpBody;
-use axum::http::{Response, StatusCode};
+use axum::http::{Request, Response, StatusCode};
 use axum::response::{IntoResponse, Redirect};
 use axum::Router;
 use std::convert::Infallible;
 use std::io;
 
 use axum::routing::{get, get_service};
-use tower::ServiceBuilder;
+use tower::{Service, ServiceBuilder};
 use tower_http::services::fs::ServeFileSystemResponseBody;
 use tower_http::services::{ServeDir, ServeFile};
 use tower_http::trace::TraceLayer;
@@ -22,21 +22,13 @@ async fn main() {
 
     let app = Router::new()
         .fallback(
-            get_service(
-                ServiceBuilder::new()
-                    .and_then(
-                        |response: Response<ServeFileSystemResponseBody>| async move {
-                            let response = if response.status() == StatusCode::NOT_FOUND {
-                                Redirect::to("/".parse().unwrap()).into_response()
-                            } else {
-                                response.map(|body| body.boxed()).into_response()
-                            };
-                            Ok::<_, _>(response)
-                        },
-                    )
-                    .service(ServeDir::new("./target/ui")), // ServeDir::new("./ui")
-            )
-            .handle_error(|_: io::Error| async move { unimplemented!() }),
+            get_service(ServeFile::new("./target/ui/index.html"))
+                .handle_error(|_: io::Error| async move { unimplemented!() }),
+        )
+        .nest(
+            "/static",
+            get_service(ServeDir::new("./target/ui"))
+                .handle_error(|_: io::Error| async move { unimplemented!() }),
         )
         .nest("/api/v0", api::v0::router())
         .layer(TraceLayer::new_for_http());
