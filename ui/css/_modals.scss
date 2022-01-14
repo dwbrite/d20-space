@@ -1,0 +1,53 @@
+@import "colors";
+@import "typography";
+@import "structures";
+
+
+div.modal-backdrop {
+  @extend .fullscreen;
+  display: flex;
+  align-items: center;
+  overflow-y: auto;
+}
+
+div.login-modal {
+  @extend .outer-component;
+  width: 20em;
+  min-height: 20em;
+  margin: auto;
+
+  > div.login-title {
+    padding: 0.5em;
+    font-size: larger;
+    text-align: center;
+    //TODO: replace this color
+    border-bottom: solid #444 1px;
+    font-family: $face-title;
+  }
+}
+
+div.user {
+  @extend .inner-component;
+  @extend .inner-selectable;
+
+  width: auto;
+  left: 0; right: 0;
+  height: 3em;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  > .user-icon {
+    margin: 0.2em;
+    max-height: 2.5em;
+  }
+
+  > .user-name {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: right;
+    left: auto;
+    padding: 0.5em;
+  }
+}

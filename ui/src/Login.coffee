@@ -25,11 +25,9 @@ Title =
 
 export Login =
   view: -> [
-    <div class={"login"}>
+    <div class={"modal-backdrop"}>
       <div class={"login-modal"}>
         <div class={"login-title"}><Title/></div>
-        {<UserComponent name={user.name}/> for user in UsersModel.users}
-        {<UserComponent name={user.name}/> for user in UsersModel.users}
         {<UserComponent name={user.name}/> for user in UsersModel.users}
       </div>
     </div>

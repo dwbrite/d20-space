@@ -2,7 +2,8 @@
 @import url("/fonts/IMFellEnglish/im-fell-english.css");
 @import url("/fonts/Merriweather/merriweather.css");
 
-$face-serif: "Merriweather", serif;
+$face-title: "Merriweather", serif;
+$face-text: "IM Fell English", serif;
 
 @media screen and (min-width: 1080px) {
   body {
@@ -13,7 +14,7 @@ $face-serif: "Merriweather", serif;
 
 
 body {
-  font-family: $face-serif;
+  font-family: $face-text;
   letter-spacing: 0.3px;
   -webkit-text-size-adjust: none;
 
