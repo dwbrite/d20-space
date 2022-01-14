@@ -8,6 +8,7 @@ div.modal-backdrop {
   display: flex;
   align-items: center;
   overflow-y: auto;
+  box-shadow: inset 0 0 250px 250px $col-backdrop;
 }
 
 div.login-modal {

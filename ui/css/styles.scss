@@ -21,7 +21,6 @@ body {
     height: 100%;
     background-image: url("/stone_wall.jpg");
     transform: scale(1.2);
-    box-shadow: inset 0 0 250px 250px $col-backdrop;
     background-size: 100% auto;
     background-repeat: repeat-y;
     filter: blur(15px);
